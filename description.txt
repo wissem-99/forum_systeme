@@ -1,0 +1,9 @@
+Le  projet consiste en un « Forum Système » qui réalise les fonctions suivantes :
+
+-          Authentification Administrateur/utilisateur avec droits d’accès
+
+-          Ouverture de ticket avec chargement fichier journal (Log/trace…) et analyse des erreur basée sur des mots clé
+
+-          Saisie des correctifs avec possibilités de joindre des fichiers
+
+-          Changement d’état du ticket (En cours, Résolut, Fermé…)
