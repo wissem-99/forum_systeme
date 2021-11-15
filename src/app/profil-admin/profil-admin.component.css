@@ -1,0 +1,15 @@
+nav{
+    background: rgba(0, 0, 0, 0.219);
+    height: 100px;
+    width: 100%;
+    position: sticky;
+    z-index: 3; 
+  }
+  label.logo{
+    color: white;
+    font-size: 35px;
+    line-height: 80px;
+    padding: 0 100px;
+    font-weight: bold;
+  }
+  

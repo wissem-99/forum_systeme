@@ -1,0 +1,140 @@
+<table class="table">
+  <thead class="table-striped table-dark">
+    <tr>
+      <th scope="col">Sujet</th>
+      <th scope="col">Contenu</th>
+      <th scope="col">Etat</th> 
+      <th scope="col">NB_com</th>
+      <th scope="col">Fichier</th>
+      <th scope="col">Date Création</th>
+      <th scope="col">Supprimer</th>
+      <th scope="col">Modifier</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let t of my_tickets ">
+    <tr>
+      <th>{{t.sujet}}</th>
+      <td>{{t.contenu}}</td>
+      <td>{{t.etat}}</td>
+      <td>{{t.nb_com}}</td>
+      <td><a href="{{t.files[0].file_dno}}{{t.files[0].id_f}}">{{t.files[0].name}}</a></td>
+         <td>{{t.date_creation|date :'dd/MM/yy HH:mm:ss':'GMT+1'}}</td>
+      <td><button type="button" class="btn btn-outline-danger" (click)="supp_tic(t)"><svg
+            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+            viewBox="0 0 16 16">
+            <path
+              d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+            <path fill-rule="evenodd"
+              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+          </svg></button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-outline-warning" (click)="charger(t)"  data-bs-toggle="modal" data-bs-target="#edit"
+        ><svg
+            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+          </svg></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal"
+  data-bs-whatever="@getbootstrap"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+    class="bi bi-plus-lg" viewBox="0 0 16 16">
+    <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+  </svg> </button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nouvelle Ticket</h5>
+      </div>
+      <div *ngIf="show">
+      <div  class="modal-body">
+        <form>
+          <div *ngIf="!test_champ_sujet" class="alert alert-danger loginerr" role="alert">{{msg}}</div>
+          <label for="sujet" class="form-label">Sujet</label>
+          <input type="text" class="form-control" id="sujet" [(ngModel)]="sujet">
+          <div *ngIf="!test_champ_contenu" class="alert alert-danger loginerr" role="alert">{{msg}}</div>
+          <label for="contenu" class="form-label">Contenu</label>
+          <input type="text" class="form-control" id="contenu" [(ngModel)]="contenu">
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)=init() id="add" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-outline-success" (click)="ajout()">Ajouter</button>
+      </div>
+      </div>
+      <div *ngIf="!show">
+        <div class="row">
+          <div class="col-8">
+            <label class="btn btn-default p-0">
+              <input type="file" (change)="selectFile($event)" />
+            </label>
+          </div>
+        
+          <div class="col-4">
+            <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
+              Upload
+            </button>
+          </div>
+        </div>
+      
+        <div *ngIf="currentFile" class="progress my-3">
+          <div
+            class="progress-bar progress-bar-info progress-bar-striped"
+            role="progressbar"
+            attr.aria-valuenow="{{ progress }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [ngStyle]="{ width: progress + '%' }"
+          >
+            {{ progress }}%
+          </div>
+        </div>
+        
+        <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
+        <button type="button" class="btn btn-outline-danger" (click)=init() id="add" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  model edit -->
+
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modifier Ticket</h5>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="!test_champ_sujet_edit" class="alert alert-danger loginerr" role="alert">{{msg}}</div>
+        <label for="sujet_edit" class="form-label">Sujet</label>
+        <input type="text" class="form-control" id="edit_sujet" value={{y?.sujet}}>
+        <div *ngIf="!test_champ_contenu_edit" class="alert alert-danger loginerr" role="alert">{{msg}}</div>
+        <label for="edit_contenu" class="form-label">Contenu</label>
+        <input type="text" class="form-control" id="edit_contenu" value={{y?.contenu}}>
+
+        <label for="edit_etat" >Etat</label><br>
+        <select class="custom-select" id="edit_etat">
+          <option selected value="{{y?.etat}}" >{{y?.etat}}</option>
+          <option *ngFor="let etat of  etat_tableau " value="{{etat}}">{{etat}}</option>
+          
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" id="edit" (click)="init_edit()" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-outline-success" (click)="update_tic(y)">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>
+

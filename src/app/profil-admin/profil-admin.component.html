@@ -1,0 +1,69 @@
+<!-- navbar -->
+<nav class="navbar ">
+  <a class="navbar-brand" routerLink=""><img src="../../assets/logo.jpg" alt="logo" class="logo">
+    <i class=""></i></a>
+    <form class="d-flex">
+    <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/profil_admin" routerLinkActive="active" type="submit" >Profil</button>
+    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" (click)="dec()">Deconnexion</button>
+  </form>
+</nav>
+
+<button type="button" class="btn btn-outline-secondary btn-lg" (click)="retour()">Retour</button>
+
+<!-- contenu page Admin -->
+<div class="card border-success mb-3 w3-center" style="margin:auto;width:50%">
+    <div class="card-header"><h2>Admin</h2></div>
+    <div class="card-body text-success">
+    
+      <h5 class="card-title"> Nom : {{a.nom_admin}}</h5>
+      <h5 class="card-title">Prenom : {{a.prenom_admin}}</h5>
+      <h5 class="card-title">Email: {{a.email_admin}}</h5>
+ 
+    <!-- model update mdp-->
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Changer mot de passe 
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Chnger Mot de passe :</h5>
+     
+      </div>
+      <div class="modal-body">
+        <div *ngIf="!aff">
+        <div *ngIf="!test_mdp" class="alert alert-danger loginerr" role="alert">{{ch}} </div>
+        <div class="mb-3">
+          <label for="mdp" class="col-form-label">Mot de passe actuelle:</label>
+          <input type="password" class="form-control" id="mdp">
+        </div>
+        </div>
+        <div *ngIf="affiche" >
+        <div class="mb-3">
+          <div *ngIf="!format_pwd" class="alert alert-danger loginerr" role="alert">format invalid </div>
+          <label for="nv_mdp" class="col-form-label">Nouveau mot de passe:</label>
+          <input type="password" class="form-control" id="nv_mdp">
+        </div>
+        <div class="mb-3">
+          <div *ngIf="!meme_mdp" class="alert alert-danger loginerr" role="alert">le meme mdp  </div>
+          <label for="c_nv_mdp" class="col-form-label">Confrimer mot de passe:</label>
+          <input type="password" class="form-control" id="c_nv_mdp" >
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="fermer()" id="r" class="btn btn-outline-danger" data-bs-dismiss="modal" >Fermer</button>
+        <div *ngIf="!aff">
+          <button  type="button" class="btn btn-outline-success" (click)="verif(a)">Passer</button>
+          </div>
+          <div *ngIf="affiche">
+        <button type="button" class="btn btn-outline-success" (click)="change(a)">Changer</button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

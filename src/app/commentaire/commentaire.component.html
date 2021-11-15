@@ -1,0 +1,91 @@
+<nav class="navbar">
+  <a class="navbar-brand" routerLink=""><img src="../../assets/logo.jpg" alt="logo" class="logo">
+    <i class=""></i></a>
+  <form class="d-flex">
+    <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/profil_user" routerLinkActive="active"
+      type="submit">Profil</button>
+    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" (click)="dec()">Deconnexion</button>
+  </form>
+</nav>
+
+
+<button type="button" class="btn btn-outline-secondary btn-lg " (click)="retour()">Retour</button> 
+<div class="card">
+  <div class="card-header">
+   <h2>{{a.utilisateur.nom_utl}}&nbsp;{{a.utilisateur.prenom_utl}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{a.date_creation |date :'dd/MM/yy HH:mm:ss':'GMT+1'}}</h2>
+  </div>
+  <div class="card-body">
+    <h3 class="card-title">{{a.sujet}} </h3>
+    <p class="card-text">{{a.contenu}}</p>
+    <p class="card-text"><a href="{{a.files[0].file_dno}}{{a.files[0].id_f}}">{{a.files[0].name}}&nbsp;<i class="bi bi-download"></i></a></p>
+  </div>
+<img src="{{url}}" alt="" width="100%">
+  <div class=" col-lg-4">
+  <label for="edit_etat" >  <h2>Espace Analyse</h2></label><br>
+        <select class="form-select" id="edit_etat">
+          <option value="INFO">INFO</option>
+          <option value="TRACE">TRACE</option>
+          <option value="WARN ">WARN</option>
+          <option value="EVENT">EVENT</option>
+          <option value="WARNING">WARNING</option>
+          <option value="ERROR">ERROR</option>
+        </select>
+        </div>
+    <div>
+      <button type="button" class="btn btn-outline-primary" (click)="analyse()">analyse</button>
+    </div>
+  <div *ngIf=show>
+  <div *ngFor="let r of res">
+    {{r}}
+     </div>
+     </div>
+</div>
+<div *ngIf=vide>
+<h2>Vide</h2>
+</div>
+<h2>Commentaires :</h2>
+<table  class="table  table-bordered">
+  <thead>
+    <tr>
+      <th style="width:15%" scope="col">Utilisateur :</th>
+      <th style="width:15%" scope="col">Date :</th>
+      <th scope="col">Commentaire :</th>
+    </tr>
+  </thead>
+<tbody *ngFor="let co of coms" >
+  <tr>
+    <td>{{co.utilisateur.nom_utl}}&nbsp;{{co.utilisateur.prenom_utl}}</td>
+    <td>{{co.dh_com |date :'dd/MM/yy HH:mm:ss':'GMT+1'}}</td>
+    <td>{{co.com}}</td>
+    <td><i class="bi bi-eye"></i></td>
+  </tr>
+</tbody>
+<tbody *ngFor="let co of my_coms" class="table-secondary" >
+  <tr>
+    <td>{{co.utilisateur.nom_utl}}&nbsp;{{co.utilisateur.prenom_utl}}</td>
+    <td>{{co.dh_com |date :'dd/MM/yy HH:mm:ss':'GMT+1'}}</td>
+    <td>{{co.com}}</td>
+    <td>  <button class="btn btn-outline-danger btn-endline" (click)="delete_com(co)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+      </svg>
+    </button></td>
+  </tr>
+</tbody>
+</table>
+  
+
+
+<form>
+  <div *ngIf="!test_com_vide" class="alert alert-danger loginerr" role="alert">Saisir Commentaire</div>
+      <textarea class=" col-lg-4" id="com"  [(ngModel)]="com"></textarea>
+      <button class="btn btn--outline-danger" type="submit" (click)="add_com()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+          <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+          <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+        </svg>
+      </button>
+    
+</form>

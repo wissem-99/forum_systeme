@@ -1,0 +1,42 @@
+<div *ngIf=!show class="container">
+  <div class="row">
+    <div class="col-sm-12  col-lg-4 col-xl-4 col-md-12 " *ngFor="let t of tickets ;let i= index">
+      <div class="card border-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header">{{t.utilisateur.nom_utl}}&nbsp;{{t.utilisateur.prenom_utl}}
+          <br> {{t.date_creation |date :'dd/MM/yy HH:mm:ss':'GMT+1'}}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title {{t.etat}}">{{t.etat}}</h5>
+          <h5 class="card-title">{{t.sujet}}</h5>
+          <p class="card-text">{{t.contenu}}</p>
+          <p><a href="{{t.files[0].file_dno}}{{t.files[0].id_f}}">{{t.files[0].name}}&nbsp;<i class="bi bi-download"></i></a></p>
+          <br>
+          <button type="submit" class="btn btn-outline-warning btn-sm" (click)="comment(t)"> espace Commentaires
+            ({{t.nb_com}})</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- -->
+
+  <div *ngIf=show class="container">
+    <div class="row">
+      <div  *ngFor="let t of tickets ;let i= index">
+        <div class="card border-warning mb-3" style="max-width: 18rem;">
+          <div class="card-header">{{t.utilisateur.nom_utl}}&nbsp;{{t.utilisateur.prenom_utl}}
+            <br> {{t.date_creation |date :'dd/MM/yy HH:mm:ss':'GMT+1'}}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title {{t.etat}}">{{t.etat}}</h5>
+            <h5 class="card-title">{{t.sujet}}</h5>
+            <p class="card-text">{{t.contenu}}</p>
+            <p><a href="{{t.files[0].file_dno}}{{t.files[0].id_f}}">{{t.files[0].name}}&nbsp;<i class="bi bi-download"></i></a></p>
+            <br>
+            <button type="submit" class="btn btn-outline-warning btn-sm" (click)="comment(t)"> espace Commentaires
+              ({{t.nb_com}})</button>
+          </div>
+        </div>
+      </div>
+    </div>

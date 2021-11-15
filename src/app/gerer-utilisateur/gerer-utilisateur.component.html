@@ -1,0 +1,159 @@
+<nav class="navbar  ">
+  <a class="navbar-brand" routerLink=""><img src="../../assets/logo.jpg" alt="logo" class="logo">
+    <i class=""></i></a>
+  <form class="d-flex">
+    <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/profil_admin" routerLinkActive="active"
+      type="submit">Profil</button>
+    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" (click)="dec()">Deconnexion</button>
+  </form>
+</nav>
+
+<h2>
+  <marquee>Page Administrateur</marquee>
+</h2>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-plus-fill"
+    viewBox="0 0 16 16">
+    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+    <path fill-rule="evenodd"
+      d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
+  </svg>
+</button>
+
+<!-- Modal -->
+<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <form>
+          <div *ngIf="!test_champ_nom" class="alert alert-danger loginerr" role="alert">{{verif_text}} nom</div>
+          <div class="mb-3">
+            <label for="nom_utl" class="form-label">nom</label>
+            <input type="text" class="form-control" id="nom_utl" [(ngModel)]="nom_utl">
+
+          </div>
+          <div *ngIf="!test_champ_prenom" class="alert alert-danger loginerr" role="alert">{{verif_text}} prenom</div>
+          <div class="mb-3">
+            <label for="prenom_utl" class="form-label">prenom</label>
+            <input type="text" class="form-control" id="prenom_utl" [(ngModel)]="prenom_utl">
+
+          </div>
+          <div *ngIf="!email_format" class="alert alert-danger loginerr" role="alert">{{email_format_text}} email</div>
+          <div *ngIf="!test_existe" class="alert alert-danger loginerr" role="alert">{{text_existe}} email</div>
+          <div *ngIf="!test_champ_email" class="alert alert-danger loginerr" role="alert">{{verif_text}} email</div>
+          <div class="mb-3">
+            <label for="email_utl" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email_utl" aria-describedby="emailHelp"
+              [(ngModel)]="email_utl">
+          </div>
+
+          <div *ngIf="!test_champ_poste" class="alert alert-danger loginerr" role="alert">{{verif_text}} poste</div>
+          <div class="mb-3">
+            <label for="poste" class="form-label">Poste</label>
+            <input type="text" class="form-control" id="poste" [(ngModel)]="poste">
+
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="r" (click)="vider()" type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" class="btn btn-outline-success" (click)="ajouter()">Ajouter</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<h2>
+  <marquee>Consultation</marquee>
+</h2>
+
+
+
+
+<!--table users-->
+<table class="table">
+  <thead class="table-striped table-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prenom</th>
+      <th scope="col">Poste</th>
+      <th scope="col">NB_tickets</th>
+      <th scope="col">Email</th>
+      <th scope="col">Date rejoindre</th>
+      <th scope="col">Supprimer</th>
+      <th scope="col">Modifier</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let user of users ">
+    <tr>
+      <td> {{user.id_utl}}</td>
+      <td> {{user.nom_utl}}</td>
+      <td> {{user.prenom_utl}}</td>
+      <td> {{user.poste}}</td>
+      <td>{{user.nb_ticket}}</td>
+      <td> {{user.email_utl}}</td>
+      <td>{{user.date_rej |date :'dd/MM/yy HH:mm:ss':'GMT+1'}}</td>
+      <td><button class="btn btn-outline-danger" (click)="supp(user)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash"
+            viewBox="0 0 16 16">
+            <path
+              d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+            <path fill-rule="evenodd"
+              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+          </svg>
+        </button></td>
+      <td><button (click)=set(user) data-bs-toggle="modal" data-bs-target="#edit" class="btn btn-outline-warning"><svg
+            xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil"
+            viewBox="0 0 16 16">
+            <path
+              d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+          </svg></button></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-body">
+  
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom_e" ngModel={{y?.nom_utl}} class="form-control">
+          </div>
+          
+          <div class="form-group">
+            <label for="prenom">Prenom</label>
+            <input type="text" id="prenom_e" ngModel={{y?.prenom_utl}} class="form-control">
+          </div>
+      
+          <div class="form-group">
+            <label for="poste">Poste </label>
+            <input type="text" id="poste_e" ngModel={{y?.poste}} class="form-control">
+          </div>
+      </div>
+
+      <div class="modal-footer">
+        
+        <button type="button" (click)="update(y)" class="btn btn-outline-success" data-bs-dismiss="modal">Modifier</button>
+        <button type="button"  class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
+
+
+      </div>
+    </div>
+  </div>
+</div>

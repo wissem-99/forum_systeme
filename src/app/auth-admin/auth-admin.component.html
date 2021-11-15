@@ -1,0 +1,55 @@
+<app-navbar-principale></app-navbar-principale>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <form>
+        <h2> Interface de connexion Admin :</h2>
+        <div *ngIf="!test_champ_email" class="alert alert-danger loginerr" role="alert">{{verif_text}} Email</div>
+        <div *ngIf="!loginn" class="alert alert-danger loginerr" role="alert">{{loginErr}}</div>
+        <div class="mb-3">
+          <label for="em" class="form-label">Email :</label>
+          <input type="email" class="form-control" name="em" id="em" [(ngModel)]="email_admin" required size="5"
+            maxlength="35">
+        </div>
+
+        <div *ngIf="!test_champ_mdp" class="alert alert-danger loginerr" role="alert">{{verif_text}} Mot de passe</div>
+        <div class="mb-3">
+
+          <label for="mdp" class="form-label">Mot de passe :</label>
+          <input type="password" class="form-control" [(ngModel)]="mdp_admin" id="mdp" required size="20">
+        </div>
+        <div class="row">
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-outline-primary btn-lg btn-block" (click)=" login()">Connexion </button>
+          </div>
+        </div>
+        <div class="row">
+        <div class=" col-10 text-end">
+            <button type="button"  class="btn btn-sm btn-outline-danger " data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Oublier mot de passe ??
+            </button>
+          </div>
+          </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <div class="modal-body">
+                <form>
+                  <div *ngIf="!not_find" class="alert alert-danger loginerr" role="alert">cette email n est pas un compte </div>
+                  <div *ngIf="!champ_verif" class="alert alert-danger loginerr" role="alert">Saisir </div>
+                  <div *ngIf="!find" class="alert alert-success loginerr" role="alert">Voir votre email</div>
+                 <label for="em_v" class="form-label">Email :</label>
+          <input type="email" class="form-control" name="em_v" id="em_v"  >
+                </form>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" id="r" class="btn btn-outline-danger" (click)="vider()" data-bs-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-outline-success" (click)="rech()">Verifier</button>
+
+              </div>
+            </div>
+          </div>
+        </div>

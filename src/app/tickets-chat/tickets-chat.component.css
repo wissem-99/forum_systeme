@@ -1,0 +1,20 @@
+.Résolut
+{
+  color: rgb(59, 190, 59);
+}
+.fermée
+{
+    color: rgb(255, 0, 0);
+}
+.en_cours
+{
+    color: hsla(249, 100%, 50%, 0.959);
+}
+
+a
+{
+  color: rgb(200, 41, 41);
+  text-decoration: none;
+  size: 25px;
+}
+
